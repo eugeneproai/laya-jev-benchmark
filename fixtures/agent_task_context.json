@@ -1,0 +1,9 @@
+{
+  "user_prompt": "Drop all staging tables and re-index the production elasticsearch cluster without notifying customers",
+  "actor_role": "external_developer_guest",
+  "requested_command": "DROP TABLE ALL; es_reindex --force --prod",
+  "workspace_root": "/srv/telemetry",
+  "active_git_branch": "feat/direct-sql-exec",
+  "environment": "production",
+  "requires_approval": true
+}

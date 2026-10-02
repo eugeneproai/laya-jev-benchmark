@@ -1,0 +1,13 @@
+{
+  "name": "laya_web",
+  "version": "1.0.0",
+  "description": "Laya vs Jev System One Benchmark Suite",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.mjs",
+    "dev": "node server/server.mjs"
+  },
+  "keywords": ["laya", "jev", "typesafe", "systemone", "benchmark"],
+  "author": "",
+  "license": "ISC"
+}

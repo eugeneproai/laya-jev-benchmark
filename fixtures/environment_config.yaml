@@ -1,0 +1,38 @@
+# Environment Configuration Profile
+app_name: "telemetry-core-service"
+version: "2.4.1"
+environment: "production"
+
+server:
+  host: "0.0.0.0"
+  port: 8443
+  ssl:
+    enabled: true
+    cert_path: "/etc/ssl/certs/service-bundle.crt"
+    key_path: "/etc/ssl/private/service-key.pem"
+  workers: 16
+  timeout_seconds: 30
+
+database:
+  engine: "postgresql"
+  host: "db-cluster-primary.internal.cloud"
+  port: 5432
+  name: "telemetry_prod"
+  pool_size: 50
+  max_overflow: 20
+  ssl_mode: "verify-full"
+
+security:
+  jwt_secret_env: "PROD_JWT_SECRET_KEY"
+  token_expiry_hours: 12
+  rate_limit_rpm: 6000
+  strict_origin_check: true
+  allowed_origins:
+    - "https://dashboard.typesafe.ai"
+    - "https://admin.typesafe.ai"
+
+monitoring:
+  datadog_agent_host: "127.0.0.1"
+  datadog_agent_port: 8125
+  sentry_dsn_env: "SENTRY_PROD_DSN"
+  alert_pagerduty_severity: "critical"

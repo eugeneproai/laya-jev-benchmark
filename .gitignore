@@ -1,0 +1,5 @@
+.env
+.DS_Store
+fixtures/.DS_Store
+fixtures/repo/.DS_Store
+fixtures/repo/utils/.DS_Store

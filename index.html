@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laya vs Jev — System One Benchmark Telemetry</title>
+  <meta name="description" content="Ultra-low latency benchmark suite comparing Laya local System One engine against TypeSafe AI Jev across 10 architectural levels and 30 curated scenarios.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/index.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+  <div class="app-container" id="app">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="brand-section">
+        <div class="logo-icon" id="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="brand-titles">
+          <h1 id="header-app-title">Laya vs Jev</h1>
+          <div class="tagline" id="header-app-subtitle">System One Benchmark Telemetry Suite</div>
+        </div>
+      </div>
+
+      <div class="header-status-group">
+        <!-- Laya Engine Status Pill -->
+        <div class="status-pill" id="laya-status-pill" title="Local Laya Resident Worker Engine">
+          <div class="status-dot online" id="laya-status-dot"></div>
+          <span style="color: var(--laya-cyan); font-weight: 700;">LAYA:</span>
+          <span id="laya-status-text">Checking...</span>
+        </div>
+
+        <!-- Jev API Status Pill -->
+        <div class="status-pill" id="jev-status-pill" title="TypeSafe AI Cloud API">
+          <div class="status-dot" id="jev-status-dot"></div>
+          <span style="color: var(--jev-magenta); font-weight: 700;">JEV:</span>
+          <span id="jev-status-text">Checking...</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Language Switcher (RU / EN) -->
+        <button class="lang-toggle-btn" id="lang-toggle-btn" aria-label="Toggle language">
+          <span id="lang-icon">🌐</span>
+          <span id="lang-label">EN / РУС</span>
+        </button>
+
+        <!-- Fixtures Drawer Trigger -->
+        <button class="btn btn-secondary" id="open-fixtures-btn" style="padding: 0.4rem 0.85rem; font-size: 0.8rem;">
+          📁 <span id="btn-text-fixtures">Fixtures</span>
+        </button>
+
+        <!-- History Drawer Trigger -->
+        <button class="btn btn-secondary" id="open-history-btn" style="padding: 0.4rem 0.85rem; font-size: 0.8rem;">
+          📊 <span id="btn-text-history">History</span>
+        </button>
+
+        <!-- Settings Modal Trigger -->
+        <button class="btn btn-secondary" id="open-settings-btn" style="padding: 0.4rem 0.85rem; font-size: 0.8rem;">
+          ⚙️ <span id="btn-text-settings">Settings</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+      <!-- Sidebar Navigator: 10 Levels -->
+      <aside class="sidebar-nav" id="sidebar-levels-list">
+        <div class="sidebar-header">
+          <span class="sidebar-title" id="sidebar-levels-title">Levels</span>
+          <span class="badge" style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">10 Levels / 30 Tests</span>
+        </div>
+        <!-- Dynamic Level Cards rendered by JS -->
+      </aside>
+
+      <!-- Center Area: Level Banner, Scenario Selector, Playground, Telemetry -->
+      <section class="workspace-area">
+        <!-- Active Level Banner -->
+        <div class="level-banner" id="level-banner">
+          <div class="banner-top-row">
+            <div class="banner-title-group">
+              <h2 id="banner-level-title">Level 1: Single Decisions</h2>
+            </div>
+            <div class="banner-concept-badge" id="banner-concept-badge">
+              ⚡ <span id="banner-concept-text">The smart if statement, one Noul</span>
+            </div>
+          </div>
+          <p class="banner-description" id="banner-level-desc">
+            Evaluates a single calibrated probability (0 to 1) for a yes/no statement. Replaces brittle regexes or expensive LLM prompts with an instant neural decision.
+          </p>
+
+          <!-- Scenario Tabs (A, B, C) -->
+          <div class="scenario-selector-bar">
+            <div class="scenario-tabs" id="scenario-tabs-container">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div class="action-buttons-group">
+              <button class="btn btn-primary" id="run-laya-btn">
+                ⚡ <span id="btn-text-run-laya">Run Laya</span>
+              </button>
+              <button class="btn btn-secondary" id="run-jev-btn" style="border-color: rgba(229, 81, 186, 0.4);">
+                ☁️ <span id="btn-text-run-jev">Run Jev</span>
+              </button>
+              <button class="btn btn-compare" id="run-compare-btn">
+                🚀 <span id="btn-text-compare">Compare Both</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Scenario Option Description -->
+          <div class="scenario-desc-card" id="scenario-desc-card">
+            <div class="scenario-desc-pill-group">
+              <span class="scenario-desc-badge" id="scenario-desc-badge">🎯 1A</span>
+              <span class="scenario-schema-badge" id="scenario-schema-badge">NOUL</span>
+            </div>
+            <div class="scenario-desc-body">
+              <strong class="scenario-desc-title" id="scenario-desc-title">Option A: Prompt Injection Gate</strong>
+              <span class="scenario-desc-sep">—</span>
+              <span class="scenario-desc-text" id="scenario-desc-text">Detects jailbreak attempts, system instruction overrides, or adversarial prompt injections before hitting the core agent.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automated Batch Suite Runner Bar -->
+        <div class="batch-runner-banner" id="batch-runner-banner">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.1rem;">🧪</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: #fff;" id="batch-status-title">Full Automated Benchmark Suite</div>
+              <div style="font-size: 0.72rem; color: var(--text-secondary);" id="batch-status-sub">Run all 30 scenarios back-to-back with side-by-side verification</div>
+            </div>
+          </div>
+
+          <div class="progress-track" id="batch-progress-track" style="display: none;">
+            <div class="progress-bar-fill" id="batch-progress-bar" style="width: 0%;"></div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary" id="run-level-suite-btn" style="font-size: 0.78rem; padding: 0.4rem 0.85rem;">
+              ▶ <span id="btn-text-run-level-suite">Run Level (3 Tests)</span>
+            </button>
+            <button class="btn btn-primary" id="run-all-suite-btn" style="font-size: 0.78rem; padding: 0.4rem 0.85rem; background: linear-gradient(135deg, #7928ca, #e551ba);">
+              ⚡ <span id="btn-text-run-all-suite">Run All 30 Tests</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Two Column Playground & Live Telemetry -->
+        <div class="dashboard-grid">
+          <!-- Left Column: Interactive Playground -->
+          <div class="telemetry-card" id="playground-card">
+            <div class="card-header-row">
+              <h3>🛠️ <span id="label-playground-title">Playground Inputs</span></h3>
+              <button class="btn btn-ghost" id="reset-preset-btn" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                🔄 <span id="btn-text-reset-preset">Reset to Preset</span>
+              </button>
+            </div>
+
+            <!-- Playground Scenario Context Callout -->
+            <div class="playground-scenario-context" id="playground-scenario-context">
+              <span class="playground-scenario-icon">💡</span>
+              <div class="playground-scenario-text-wrap">
+                <span class="playground-scenario-label" id="playground-scenario-label">Scenario Goal:</span>
+                <span class="playground-scenario-text" id="playground-scenario-desc">Detects jailbreak attempts, system instruction overrides, or adversarial prompt injections before hitting the core agent.</span>
+              </div>
+            </div>
+
+            <!-- Single Scenario Mode (Levels 1-8, 10) -->
+            <div class="playground-section" id="single-playground-section">
+              <div class="field-label">
+                <span id="label-state-input">State (Context)</span>
+                <span style="color: var(--text-muted);">JSON</span>
+              </div>
+              <textarea class="code-textarea" id="input-state-json" spellcheck="false" placeholder="Enter JSON state payload..."></textarea>
+
+              <div class="field-label">
+                <span id="label-questions-input">Typed Questions (System One Schema)</span>
+                <span style="color: var(--text-muted);">Choice / Score / Noul</span>
+              </div>
+              <textarea class="code-textarea" id="input-questions-json" spellcheck="false" placeholder="Enter System One questions schema..." style="min-height: 200px;"></textarea>
+            </div>
+
+            <!-- Multi-File Batch Mode (Level 9) -->
+            <div class="playground-section" id="batch-playground-section" style="display: none;">
+              <div class="field-label">
+                <span id="label-batch-files-title">Files Queued for Parallel Scan</span>
+                <span class="badge" id="batch-files-count-badge" style="background: rgba(0, 242, 254, 0.15); color: var(--laya-cyan); font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px;">3 Files</span>
+              </div>
+              <div class="batch-files-container" id="batch-files-container">
+                <!-- Dynamically rendered list of files with preview toggles -->
+              </div>
+
+              <div class="field-label">
+                <span id="label-batch-questions-input">Shared Question Schema</span>
+                <span style="color: var(--text-muted);">Evaluated in parallel across all files</span>
+              </div>
+              <textarea class="code-textarea" id="batch-questions-json" spellcheck="false" placeholder="Enter System One questions schema..." style="min-height: 160px;"></textarea>
+            </div>
+          </div>
+
+          <!-- Right Column: Telemetry & Results View -->
+          <div class="telemetry-card" id="telemetry-card">
+            <div class="card-header-row">
+              <h3>📡 <span id="label-telemetry-title">Live Telemetry & Metrics</span></h3>
+              <div id="telemetry-timestamp" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Awaiting Run</div>
+            </div>
+
+            <!-- Single Result Mode Metrics & Answers -->
+            <div id="single-results-container">
+              <!-- Comparison Metric Boxes -->
+              <div class="metrics-comparison-grid" id="metrics-grid">
+                <!-- Laya Metric Box -->
+                <div class="metric-box laya-box">
+                  <div class="metric-box-title">
+                    <span>LAYA LOCAL</span>
+                    <span id="laya-device-badge" class="badge" style="background: rgba(0, 242, 254, 0.15); color: var(--laya-cyan); font-family: var(--font-mono); font-size: 0.68rem; padding: 2px 6px; border-radius: 4px;">MPS</span>
+                  </div>
+                  <div class="latency-display">
+                    <div class="latency-value" id="laya-latency-val">--</div>
+                    <div class="latency-unit">ms</div>
+                  </div>
+                  <div class="metric-sub-row">
+                    <span id="metric-lbl-model">Model</span>
+                    <span id="laya-model-val" style="color: #fff;">--</span>
+                  </div>
+                  <div class="metric-sub-row">
+                    <span id="metric-lbl-tokens">Tokens</span>
+                    <span id="laya-tokens-val" style="color: #fff;">--</span>
+                  </div>
+                </div>
+
+                <!-- Jev Metric Box -->
+                <div class="metric-box jev-box">
+                  <div class="metric-box-title">
+                    <span>JEV CLOUD</span>
+                    <span class="badge" style="background: rgba(229, 81, 186, 0.15); color: var(--jev-magenta); font-family: var(--font-mono); font-size: 0.68rem; padding: 2px 6px; border-radius: 4px;">API</span>
+                  </div>
+                  <div class="latency-display">
+                    <div class="latency-value" id="jev-latency-val">--</div>
+                    <div class="latency-unit">ms</div>
+                  </div>
+                  <div class="metric-sub-row">
+                    <span id="metric-lbl-ttfb">TTFB</span>
+                    <span id="jev-ttfb-val" style="color: #fff;">--</span>
+                  </div>
+                  <div class="metric-sub-row">
+                    <span id="metric-lbl-jev-tokens">Tokens</span>
+                    <span id="jev-tokens-val" style="color: #fff;">--</span>
+                  </div>
+                </div>
+
+                <!-- Winner & Speedup Bar -->
+                <div class="winner-card" id="winner-card" style="display: none;">
+                  <div class="winner-text">
+                    <span id="winner-icon">🏆</span>
+                    <span id="winner-statement">Laya is 8.4x faster</span>
+                  </div>
+                  <div class="speedup-badge" id="speedup-badge">
+                    +342ms Saved
+                  </div>
+                </div>
+              </div>
+
+              <!-- Latency Visual Comparison Bar -->
+              <div class="bar-chart-container" id="latency-bar-container" style="display: none;">
+                <div class="bar-row">
+                  <span class="bar-label">Laya</span>
+                  <div class="bar-track">
+                    <div class="bar-fill laya" id="bar-fill-laya" style="width: 10%;"></div>
+                  </div>
+                  <span class="bar-ms" id="bar-ms-laya">46ms</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Jev</span>
+                  <div class="bar-track">
+                    <div class="bar-fill jev" id="bar-fill-jev" style="width: 80%;"></div>
+                  </div>
+                  <span class="bar-ms" id="bar-ms-jev">388ms</span>
+                </div>
+              </div>
+
+              <!-- Decision Outputs & Alignment -->
+              <div class="decisions-container" id="decisions-container">
+                <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase;" id="label-answers-title">
+                  Structured Decision Answers
+                </div>
+                <div id="decisions-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem; text-align: center;">
+                    Execute a benchmark test to view structured decision answers side-by-side.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Batch Result Mode (Level 9) -->
+            <div id="batch-results-container" style="display: none;">
+              <!-- Batch Summary Stats Cards -->
+              <div class="batch-stats-summary" id="batch-stats-summary">
+                <div class="batch-stat-box">
+                  <div class="batch-stat-label">Laya Batch Time</div>
+                  <div class="batch-stat-val" id="batch-laya-time" style="color: var(--laya-cyan);">--</div>
+                </div>
+                <div class="batch-stat-box">
+                  <div class="batch-stat-label">Jev Total Time</div>
+                  <div class="batch-stat-val" id="batch-jev-time" style="color: var(--jev-magenta);">--</div>
+                </div>
+                <div class="batch-stat-box">
+                  <div class="batch-stat-label">GPU Speedup</div>
+                  <div class="batch-stat-val" id="batch-speedup-val" style="color: var(--accent-emerald);">--</div>
+                </div>
+                <div class="batch-stat-box">
+                  <div class="batch-stat-label">Throughput</div>
+                  <div class="batch-stat-val" id="batch-throughput-val" style="color: #fff;">--</div>
+                </div>
+              </div>
+
+              <!-- Multi-File Decision Matrix List -->
+              <div class="decisions-container">
+                <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.6rem;" id="label-batch-matrix-title">
+                  Multi-File Decision Matrix (Level 9)
+                </div>
+                <div id="batch-matrix-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem; text-align: center;">
+                    Click "Compare Both" to evaluate all files in parallel.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Raw Diff Inspector -->
+        <div class="telemetry-card" id="raw-diff-card">
+          <div class="card-header-row">
+            <h3>🔍 <span id="label-diff-title">Side-by-Side Payload Inspector</span></h3>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-ghost" id="copy-diff-btn" style="font-size: 0.75rem;">
+                📋 <span id="btn-text-copy-json">Copy JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="raw-diff-container">
+            <div>
+              <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--laya-cyan); margin-bottom: 0.4rem; font-weight: 700;">
+                LAYA RAW RESPONSE
+              </div>
+              <pre class="raw-json-block" id="raw-json-laya">// Laya raw JSON output will appear here...</pre>
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--jev-magenta); margin-bottom: 0.4rem; font-weight: 700;">
+                JEV RAW RESPONSE
+              </div>
+              <pre class="raw-json-block" id="raw-json-jev">// Jev raw JSON output will appear here...</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="settings-modal-title">Settings & Connection Configuration</h3>
+          <button class="btn btn-ghost" id="close-settings-modal-btn">✕</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <label class="field-label" style="margin-bottom: 0.4rem;" id="lbl-cfg-jev-key">TypeSafe AI Jev API Key</label>
+            <input type="password" class="input-field" id="cfg-jev-api-key" placeholder="Enter Bearer key (sk_...) or leave for .env">
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem;">
+              Used for POST https://api.typesafe.ai/v1/systemone. Stored securely in your browser session.
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label" style="margin-bottom: 0.4rem;" id="lbl-cfg-laya-mode">Laya Local Execution Mode</label>
+            <select class="input-field" id="cfg-laya-mode">
+              <option value="worker">Local Resident Worker (Fastest, Apple Silicon MPS)</option>
+              <option value="http">Local HTTP Server (http://127.0.0.1:8085)</option>
+            </select>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem;" id="lbl-cfg-laya-mode-desc">
+              Resident Python worker runs in-memory via stdio child-process with sub-50ms execution.
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label" style="margin-bottom: 0.4rem;" id="lbl-cfg-laya-url">Laya HTTP URL (if in HTTP mode)</label>
+            <input type="text" class="input-field" id="cfg-laya-url" value="http://127.0.0.1:8085/v1/systemone">
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+            <button class="btn btn-secondary" id="test-connection-btn" style="flex: 1;">
+              ⚡ <span id="btn-text-test-conn">Test Connections</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" id="cancel-settings-btn"><span id="btn-text-cancel">Cancel</span></button>
+          <button class="btn btn-primary" id="save-settings-btn"><span id="btn-text-save-settings">Save Settings</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixtures Drawer Modal -->
+    <div class="modal-overlay" id="fixtures-modal" style="display: none;">
+      <div class="modal-card" style="max-width: 780px;">
+        <div class="modal-header">
+          <h3 id="fixtures-modal-title">Benchmark File Fixtures (Levels 8, 9, 10)</h3>
+          <button class="btn btn-ghost" id="close-fixtures-modal-btn">✕</button>
+        </div>
+        <div class="modal-body">
+          <div style="font-size: 0.82rem; color: var(--text-secondary);" id="fixtures-modal-desc">
+            These files are used for Cheap Reads (Level 8), Files at Scale (Level 9), and Agentic System One (Level 10):
+          </div>
+          <div id="fixtures-list" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 200px; overflow-y: auto;">
+            <!-- Rendered by JS -->
+          </div>
+          <div style="margin-top: 0.5rem;">
+            <div class="field-label" id="fixture-preview-title">Fixture Content Preview</div>
+            <pre class="raw-json-block" id="fixture-preview-content" style="max-height: 240px; color: #a5f3fc;">// Select a fixture above to inspect...</pre>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="load-fixture-into-state-btn">
+            📥 <span id="btn-text-load-fixture">Load File Into Current State</span>
+          </button>
+          <button class="btn btn-secondary" id="close-fixtures-bottom-btn">
+            <span id="btn-text-close-fixtures">Close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Drawer Modal -->
+    <div class="modal-overlay" id="history-modal" style="display: none;">
+      <div class="modal-card" style="max-width: 820px;">
+        <div class="modal-header">
+          <h3 id="history-modal-title">Benchmark Run History</h3>
+          <button class="btn btn-ghost" id="close-history-modal-btn">✕</button>
+        </div>
+        <div class="modal-body">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <button class="btn btn-secondary" id="export-json-btn" style="font-size: 0.78rem;">
+              📥 <span id="btn-text-export-json">Export JSON</span>
+            </button>
+            <button class="btn btn-secondary" id="export-csv-btn" style="font-size: 0.78rem;">
+              📊 <span id="btn-text-export-csv">Export CSV</span>
+            </button>
+            <button class="btn btn-secondary" id="export-md-btn" style="font-size: 0.78rem;">
+              📝 <span id="btn-text-export-md">Export Markdown</span>
+            </button>
+            <button class="btn btn-ghost" id="clear-history-btn" style="font-size: 0.78rem; margin-left: auto; color: var(--accent-rose);">
+              🗑️ <span id="btn-text-clear-hist">Clear History</span>
+            </button>
+          </div>
+          <div id="history-table-container" style="max-height: 400px; overflow-y: auto;">
+            <!-- History items rendered by JS -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="close-history-bottom-btn"><span id="btn-text-close-hist">Close</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-notice" id="toast-notice" style="display: none;">
+      <span id="toast-icon">ℹ️</span>
+      <span id="toast-text">Notification message</span>
+    </div>
+  </div>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[2026-09-29T10:14:02.184Z] ERROR [worker-pool-3] runner.go:214: Task execution failed
+Traceback (most recent call last):
+  File "/srv/app/services/billing_engine.py", line 189, in process_settlement
+    customer = account_repo.get_by_uuid(payload["customer_id"])
+  File "/srv/app/repositories/account.py", line 42, in get_by_uuid
+    record = self.db.query(Account).filter_by(uuid=uuid).one_or_none()
+  File "/srv/app/db/session.py", line 88, in query
+    raise OperationalError("SSL connection has been closed unexpectedly", None, None)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+	Server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+[SQL: SELECT accounts.id, accounts.uuid, accounts.balance FROM accounts WHERE accounts.uuid = %(uuid_1)s]
+[parameters: {'uuid_1': '8f6c442e-bc8d-4f10-911d-ef30d944c211'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Fatal: transaction rolled back. Retry attempt 3/3 exhausted.
